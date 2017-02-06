@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CeNav Demo: jQuery Plugin</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /*
+        STYLE YOUR PAGE 
+        */
+        html {
+            box-sizing: border-box;
+        }
+        *, *:before, *:after {
+            box-sizing: inherit;
+            margin: 0; padding: 0;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #CCC;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        /*
+        STYLE YOUR MENU 
+        */
+        header {
+            background: rgba(0, 0, 0, .5);
+            height: 60px;
+            padding: 15px;
+        }
+        ul {
+            list-style-type: none;
+        }
+        li {            
+            position: relative;
+        }
+        ul.top-level > li {
+            float: left;
+        }
+        ul.top-level > li a {
+            padding: 0 10px;
+            line-height: 30px;
+            display: block;
+        }
+        a {
+            display: block;
+            text-decoration: none;
+            color: rgba(0, 0, 0, .75);
+        }
+        span {
+            float: right;
+            margin-left: 5px;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: rgba(0, 0, 0, .1);
+            transition: .2s linear transform;
+        }
+        span:before {
+            content: "\f107";
+            font-family: FontAwesome;
+            font-size: 14px;
+        }
+        ul.sub-menu {
+            position: absolute;
+            top: 45px;
+            left: 0;
+            width: 200px;
+            background: rgba(0, 0, 0, .5);
+            padding: 5px;
+            border-bottom: 5px solid rgba(0, 0, 0, .75);
+            display: none;
+        }
+        ul.sub-menu li a {
+            display: block;
+            padding: 5px 10px;
+        }
+        ul.sub-menu li a span {
+            transform: rotate(-90deg);
+        }
+        ul.sub-menu li a span.close {
+            transform: rotate(90deg);
+        }
+        ul.sub-menu li ul.sub-menu {
+            position: absolute;
+            top: 0;
+            left: 195px;
+        }
+        /*
+        ESSENTIAL FOR PLUGIN
+        */
+        span.close {
+            transform: rotate(180deg);
+        }
+        ul.active {
+            display: block;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="jquery.plugin.cenav.1.0.js"></script>
+    <script>
+        $(document).ready(function(){
+
+            // Initialise the plugin
+            $('ul.top-level span').cenav();
+
+            // Maintain focus
+            $('ul.top-level').on('click', function(e){
+        
+                e.stopPropagation();
+                
+            });
+
+            // Lose focus
+            $('html').on('click', function(e){
+                
+                $('.close, .active').removeClass('close active');
+
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="top-level">
+                <li><a href="#">Page</a></li>
+                <li><a href="#">Page</a></li>
+                <li><a href="#">Parent <span></span></a>
+                    <ul class="sub-menu">
+                        <li><a href="#">Child</a></li>
+                        <li><a href="#">Child <span></span></a>
+                            <ul class="sub-menu">
+                                <li><a href="#">Grand Child</a></li>
+                                <li><a href="#">Grand Child</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Child</a></li>
+                        <li><a href="#">Child</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Page</a></li>
+                <li><a href="#">Page</a></li>
+                <li><a href="#">Page</a></li>
+            </ul>
+        </nav>
+    </header>
+</body>
+</html>
+<!-- THAT'S ALL FOLKS -->
